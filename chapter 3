@@ -1,0 +1,62 @@
+#include "std_lib_facilities.h"
+
+int main()
+{
+  using namespace std;
+
+  constexpr unsigned minAge{0};
+  constexpr unsigned maxAge{110};
+
+  cout << "Enter the name of the person you want to write to:\n";
+  string first_name;
+  cin >> first_name; //this part is to enter name 
+  cout << std::format("Dear {},\n", first_name); //this is the format where between {} would be the entered name
+
+  cout << "\How are you? I am fine.\n"; // question 2 where it says to start the letter
+
+  cout << "Enter a friends name:\n"; // to display the output
+  cin >> first_name; // for user input
+  cout << std::format("Have you seen {} lately?\n", first_name);
+
+  cout << "What is your friends gender? (Enter m for male and f for female)\n";
+  char gender{};
+  //check for correct entry
+  while (cin >> gender)
+  {
+    gender = tolower(static_cast<unsigned char>(gender));
+    if (gender == 'm' || gender == 'f')
+    {
+      cout << std::format("If you see {} ask {} to call me.\n", first_name, ((gender == 'm') ? "him" : "her"));//this is for the user to input if the friend is a male or female and the sentance format changes
+      break;
+    }
+    cout << std::format("unrecognized gender selection ({}), please reenter: ", gender);
+  }
+
+  cout << "How old are you?\n";
+  int age{};
+  //check for valid age and valid cin to int
+  if (cin >> age && age > minAge && age < maxAge)
+  {
+    cout << std::format("I hear you just had a birthday and you are {} years old.\n", age);// to enter valid age
+    if (age < 12)
+    {
+      cout << std::format("Next year you will be {}.\n", age + 1);//if age is less than 12 to add one year because the sentacne says next year
+    }
+    else if (age == 17)
+    {
+      cout << "Next year you will be able to vote.\n";// if age is 17 this will be the output
+    }
+    else if (age > 70)
+    {
+      cout << "I hope you are enjoying retirement.\n";// if age is more than 70 this will be the output
+    }
+    cout << "Yours sincerely,\n\n\n";// end of letter with two blank lines
+  }
+  else
+  {
+    simple_error("you're kidding!");
+  }
+
+  keep_window_open();
+  return 0;
+}
